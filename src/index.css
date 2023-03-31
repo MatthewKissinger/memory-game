@@ -7,3 +7,15 @@
 body {
     font-family: 'Lato', sans-serif;
 }
+
+.card-grid {
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 5rem;
+    border: 1px solid green;
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+    padding: 2rem;
+    flex-wrap: wrap;
+}
