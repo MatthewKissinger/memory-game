@@ -3,7 +3,9 @@ import Header from "./components/Header"
 import Card from "./components/Card"
 import data from "./testData"
 
-// create a grid in CardGrid and display the info
+// add in some game instructions above the card-grid container
+
+// after clicking a card, randomize the cardData array and re-render the cards on the page
 
 function App() {
 // state 
@@ -14,21 +16,49 @@ function App() {
 
   const [clickedCards, setClickedCards] = useState([]);
 
+  console.log(clickedCards);
+
+// Methods
+  function getCardId(e) {
+    const id = e.target.id;
+
+    checkClickedArray(id);
+  } 
+
+  function checkClickedArray(id) {
+    const checkedValue = clickedCards.find(item => parseInt(item) === parseInt(id));
+
+    if (checkedValue !== undefined) {
+      console.log('you already clicked this card')
+      setScores({
+        ...scores,
+        currentScore: 0
+      })
+    } else {
+      setClickedCards([...clickedCards, id]);
+      setScores({
+        currentScore: scores.currentScore + 1,
+        bestScore: scores.currentScore + 1 > scores.bestScore ? scores.currentScore + 1 : scores.bestScore
+      })
+    }
+  }
+
 // useEffect
 
 // hardcoded card data
-const { cardData } = data;
+  const { cardData } = data;
 
 // map over data and display list items
-const cardList = cardData.map(item => {
-  return (
-    <Card 
-      key={item.id}
-      id={item.id}
-      text={item.text}
-    />
-  )
-})
+  const cardList = cardData.map(item => {
+    return (
+      <Card 
+        key={item.id}
+        id={item.id}
+        text={item.text}
+        handleClick={getCardId}
+      />
+    )
+  })
 
   return (
     <div className="App">
