@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Header from "./components/Header"
-import Card from "./components/Card"
-import data from "./testData"
+import CardList from './components/CardList';
 
-// add in some game instructions above the card-grid container
+// add instructions for the game above the card grid
 
-// after clicking a card, randomize the cardData array and re-render the cards on the page
+// hook up the pokemon API to generate the unique cards
 
 function App() {
 // state 
@@ -29,7 +28,7 @@ function App() {
     const checkedValue = clickedCards.find(item => parseInt(item) === parseInt(id));
 
     if (checkedValue !== undefined) {
-      console.log('you already clicked this card')
+      setClickedCards([]);
       setScores({
         ...scores,
         currentScore: 0
@@ -43,32 +42,16 @@ function App() {
     }
   }
 
-// useEffect
-
-// hardcoded card data
-  const { cardData } = data;
-
-// map over data and display list items
-  const cardList = cardData.map(item => {
-    return (
-      <Card 
-        key={item.id}
-        id={item.id}
-        text={item.text}
-        handleClick={getCardId}
-      />
-    )
-  })
-
   return (
     <div className="App">
       <Header 
         scores={scores}
       />
       <div className='instructions'></div>
-      <div className='card-grid'>
-        {cardList}
-      </div>
+      <CardList 
+        getCardId={getCardId}
+        clickedCards={clickedCards}
+      />
     </div>
   )
 }
