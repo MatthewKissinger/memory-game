@@ -1,12 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from "./components/Header"
 import CardList from './components/CardList';
 
-// add instructions for the game above the card grid
-
 // hook up the pokemon API to generate the unique cards
 
+// add instructions for the game above the card grid
+
+
 function App() {
+// variables
+const pokemonNumber = 12;
+
 // state 
   const [scores, setScores] = useState({
     currentScore: 0,
@@ -15,7 +19,17 @@ function App() {
 
   const [clickedCards, setClickedCards] = useState([]);
 
-  console.log(clickedCards);
+  const [dataArray, setDataArray] = useState([]);
+
+  useEffect(() => {
+    for (let i = 1; i <= pokemonNumber; i++) {
+      fetch(`https://pokeapi.co/api/v2/pokemon/${i}`)
+      .then(res => res.json())
+      .then(data => setDataArray(current => [...current, data]))
+    }
+  }, []);
+
+  console.log(dataArray[0]);
 
 // Methods
   function getCardId(e) {
@@ -51,6 +65,7 @@ function App() {
       <CardList 
         getCardId={getCardId}
         clickedCards={clickedCards}
+        dataArray={dataArray}
       />
     </div>
   )
