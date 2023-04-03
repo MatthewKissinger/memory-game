@@ -2,10 +2,9 @@ import { useState, useEffect } from 'react'
 import Header from "./components/Header"
 import CardList from './components/CardList';
 
-// hook up the pokemon API to generate the unique cards
+// Display the sprites and name from pokemon on the cards in CardList.jsx
 
 // add instructions for the game above the card grid
-
 
 function App() {
 // variables
@@ -29,17 +28,18 @@ const pokemonNumber = 12;
     }
   }, []);
 
-  console.log(dataArray[0]);
-
 // Methods
   function getCardId(e) {
     const id = e.target.id;
 
+    console.log(id);
     checkClickedArray(id);
   } 
 
   function checkClickedArray(id) {
-    const checkedValue = clickedCards.find(item => parseInt(item) === parseInt(id));
+    const checkedValue = clickedCards.find(item => item === id);
+
+    console.log(clickedCards);
 
     if (checkedValue !== undefined) {
       setClickedCards([]);
@@ -56,12 +56,18 @@ const pokemonNumber = 12;
     }
   }
 
+  if (dataArray.length !== 12) {
+    return <div>Still loading...</div>
+  }
+
   return (
     <div className="App">
       <Header 
         scores={scores}
       />
-      <div className='instructions'></div>
+      <div className='instructions'>
+        <p>Click on a different pokemon each time to increase your score!</p>
+      </div>
       <CardList 
         getCardId={getCardId}
         clickedCards={clickedCards}

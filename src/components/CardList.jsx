@@ -1,20 +1,18 @@
 import { useState, useEffect } from 'react'
+import uniqid from 'uniqid';
 import Card from './Card'
-import data from "../testData"
 
 export default function CardList(props) {
-    const { cardData } = data;
+    // destructuring props
+    const { dataArray, getCardId, clickedCards } = props;
 
     // State for shuffledArray
-    const [shuffledCards, setShuffledCards] = useState(cardData.sort((a, b) => 0.5 - Math.random()));
-
-    // destructuring props
-    const { getCardId, clickedCards } = props;
+    const [shuffledCards, setShuffledCards] = useState(dataArray.sort((a, b) => 0.5 - Math.random()));
 
     useEffect(() => {
         
         setShuffledCards(
-            cardData.sort((a, b) => 0.5 - Math.random())
+            dataArray.sort((a, b) => 0.5 - Math.random())
         );
 
     }, [clickedCards])
@@ -25,7 +23,8 @@ export default function CardList(props) {
         <Card 
             key={item.id}
             id={item.id}
-            text={item.text}
+            name={item.name}
+            sprite={item.sprites.front_default}
             handleClick={getCardId}
         />
         )
