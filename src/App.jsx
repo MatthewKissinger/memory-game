@@ -2,9 +2,7 @@ import { useState, useEffect } from 'react'
 import Header from "./components/Header"
 import CardList from './components/CardList';
 
-// Display the sprites and name from pokemon on the cards in CardList.jsx
-
-// add instructions for the game above the card grid
+// make live on gh-pages
 
 function App() {
 // variables

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import uniqid from 'uniqid';
 import Card from './Card'
 
 export default function CardList(props) {
